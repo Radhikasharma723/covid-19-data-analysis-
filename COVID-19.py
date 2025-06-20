@@ -45,21 +45,49 @@ print(df.isnull().sum())
 #Group
 top_countries = df.groupby('Country/Region')['Confirmed'].sum().reset_index()
 print("\nGrouped countries:\n", top_countries)
+print()
 
 # Sort and print top 10
+
 top_countries = top_countries.sort_values(by='Confirmed', ascending=False).head(10)
 print("\nTop 10 countries:\n", top_countries)
-
 top_countries = df.groupby('Country/Region')[['Confirmed', 'Deaths']].sum().reset_index()
 top_countries = top_countries.sort_values(by='Deaths', ascending=False).head(10)
-
 print(top_countries)
+print()
+
+# Now group by Country/Region and sum New cases
+top_countries = df.groupby('Country/Region')[['New cases']].sum().reset_index()
+# Sort and pick top 10
+top_countries = top_countries.sort_values(by='New cases', ascending=False).head(10)
+# Print result
+print(top_countries)
+print()
+
+# Now group by Country/Region and sum New deaths
+top_countries = df.groupby('Country/Region')[['New deaths']].sum().reset_index()
+# Sort and pick top 10
+top_countries = top_countries.sort_values(by='New deaths', ascending=False).head(10)
+# Print result
+print("New deaths",top_countries)
+print( )
+
+
+# Now group by Country/Region and sum Confirmed last week
+top_countries = df.groupby('Country/Region')[['Confirmed last week']].sum().reset_index()
+
+# Sort and pick top 10
+top_countries = top_countries.sort_values(by='Confirmed last week', ascending=False).head(10)
+
+# Print result
+print("Confirmed last week:", top_countries)
+
 
 
 
 #Trend Visualization 
 # Set figure size
-'''sns.set(rc={'figure.figsize': (15, 5)})
+sns.set(rc={'figure.figsize': (15, 5)})
 
 # Plot bar chart
 sns.barplot(data=top_countries, x='Country/Region', y='Confirmed')
@@ -87,7 +115,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Show plot
-plt.show()'''
+plt.show()
 
 # plot Top 10 Countries by Deaths:
 sns.set(rc={'figure.figsize': (15, 5)})
@@ -96,6 +124,37 @@ sns.lineplot(data=top_countries, x='Country/Region', y='Deaths')
 plt.title("Top 10 Countries by COVID-19 Deaths")
 plt.xlabel("Country/Region")
 plt.ylabel("Deaths")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+#plot Tpo 10 New Cases
+sns.set(rc={'figure.figsize': (15, 5)})
+sns.barplot(data=top_countries, x='Country/Region', y='New cases', palette='Blues')
+plt.title("Top 10 Countries by New COVID-19 Cases")
+plt.xlabel("Country/Region")
+plt.ylabel("New Cases")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+#plot top 10 new deaths
+sns.set(rc={'figure.figsize': (15, 5)})
+sns.barplot(data=top_countries, x='Country/Region', y='New deaths', palette='Reds')
+plt.title("Top 10 Countries by New COVID-19 Deaths")
+plt.xlabel("Country/Region")
+plt.ylabel("New Deaths")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+#top 10 Confirmed last week
+sns.set(rc={'figure.figsize': (15, 5)})
+sns.barplot(data=top_countries, x='Country/Region', y='Confirmed last week', palette='Blues',legend=False)
+plt.title("Top 10 Countries by Confirmed COVID-19 Cases Last Week")
+plt.xlabel("Country/Region")
+plt.ylabel("Confirmed Cases Last Week")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
