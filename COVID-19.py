@@ -101,7 +101,7 @@ plt.show()
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Plot daily confirmed cases for selected countries
-for country in countrie:
+for country in countries:
     country_df = df[df['Country/Region'] == country]
     plt.plot(country_df['Date'], country_df['Confirmed'], label=country)
 
